@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+service BlockchainService {
+  rpc AddTransaction (TransactionRequest) returns (TransactionResponse);
+}
+
+message TransactionRequest {
+  string sender = 1;
+  string receiver = 2;
+  int64 amount = 3;
+}
+
+message TransactionResponse {
+  bool success = 1;
+  string message = 2;
+}
