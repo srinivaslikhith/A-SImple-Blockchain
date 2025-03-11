@@ -1,5 +1,5 @@
 #include<utils.h>
-
+std::string sha256(const std::string &input)
 {
     unsigned char hash[SHA256_DIGEST_LENGTH];
     SHA256(reinterpret_cast<const unsigned char*>(input.c_str()), input.size(), hash);
