@@ -1,3 +1,6 @@
+#ifndef BLOCKCHAIN_H
+#define BLOCKCHAIN_H
+
 #include<vector>
 #include<string>
 #include<utils.h>
@@ -10,7 +13,7 @@ class Block {
     string prev_hash;
     string curr_hash;
 public:
-    Block(int i, string prevHash);
+    Block(int i, string prevHa#sh);
     void ComputeCurrentHash();
 };
 
@@ -23,3 +26,4 @@ public:
     void AddTransaction(String txn);
     Block getLastBlock();
 }
+#endif // BLOCKCHAIN_H
