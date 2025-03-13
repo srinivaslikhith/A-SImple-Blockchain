@@ -5,8 +5,8 @@ using grpc::ServerContext;
 using grpc::Status;
 
 
-grpc::Status BlockChainServiceImpl::AddTransaction(grpc::ServerContext* context, const blockchain::TransactionRequest* request, blockchain::TransactionResponse* response) {
-    std::string txn = request->sender() + "->" + request->receiver() + ":" + std::to_string(request->amount());
+grpc::Status BlockChainServiceImpl::AddTransaction(grpc::ServerContext* context, const blockchain::Transaction* request, blockchain::TransactionResponse* response) {
+    std::string txn = request->sender() + "," + request->receiver() + "," + std::to_string(request->amount());
     // need to implement database functionality for stoing balances of clients.
     //will use mongodb for this purpose.
     //late will make it distributed.
@@ -20,7 +20,28 @@ grpc::Status BlockChainServiceImpl::GetLastBlock(grpc::ServerContext* context, c
     Block lastBlock = block_chain.getLastBlock();
     response->set_index(lastBlock.index);
     response->set_timestamp(lastBlock.timestamp);
-    response->set_prev_hash(lastBlock.prev_hash);
-    response->set_curr_hash(lastBlock.curr_hash);
+    response->set_previous_hash(lastBlock.prev_hash);
+    response->set_hash(lastBlock.curr_hash);
+    for (string txn: lastBlock.transactions) {
+        blockchain::Transaction* transaction = response->add_transactions();
+        transaction->set_sender(string(1, txn[0]));
+        transaction->set_receiver(string(1, txn[2]));
+        transaction->set_amount(stoi(txn.substr(4, txn.size()-4)));
+    }
     return Status::OK;
+}
+
+void BlockChainServiceImpl::runServer() {
+    std::string server_address("localhost:50051");
+    ServerBuilder builder;
+    builder.AddListeningPort(server_address, grpc::InsecureServerCredentials());
+    builder.RegisterService(this);
+    std::unique_ptr<Server> server(builder.BuildAndStart());
+    std::cout << "Server listening on " << server_address << std::endl;
+    server->Wait();
+}
+int main() {
+    BlockChainServiceImpl service;
+    service.runServer();
+    return 0;
 }

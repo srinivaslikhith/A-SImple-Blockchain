@@ -2,13 +2,14 @@
 #define UTILS_H
 #include <chrono>
 #include <openssl/sha.h>
+#include <iostream>
+#include <iomanip>
+#include <sstream>
+#include <string>
+#include <cstdint>
 using namespace std;
 
-int64_t getCurrentTimestamp() {
-    return std::chrono::duration_cast<std::chrono::seconds>(
-        std::chrono::system_clock::now().time_since_epoch()
-    ).count();
-}
+int64_t getCurrentTimestamp();
 
 std::string sha256(const std::string &input);
 #endif // UTILS_H

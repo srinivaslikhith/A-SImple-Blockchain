@@ -25,49 +25,71 @@
 #include <grpcpp/support/stub_options.h>
 #include <grpcpp/support/sync_stream.h>
 
+namespace blockchain {
+
 class BlockchainService final {
  public:
   static constexpr char const* service_full_name() {
-    return "BlockchainService";
+    return "blockchain.BlockchainService";
   }
   class StubInterface {
    public:
     virtual ~StubInterface() {}
-    virtual ::grpc::Status AddTransaction(::grpc::ClientContext* context, const ::TransactionRequest& request, ::TransactionResponse* response) = 0;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::TransactionResponse>> AsyncAddTransaction(::grpc::ClientContext* context, const ::TransactionRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::TransactionResponse>>(AsyncAddTransactionRaw(context, request, cq));
+    virtual ::grpc::Status AddTransaction(::grpc::ClientContext* context, const ::blockchain::Transaction& request, ::blockchain::TransactionResponse* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::blockchain::TransactionResponse>> AsyncAddTransaction(::grpc::ClientContext* context, const ::blockchain::Transaction& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::blockchain::TransactionResponse>>(AsyncAddTransactionRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::TransactionResponse>> PrepareAsyncAddTransaction(::grpc::ClientContext* context, const ::TransactionRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::TransactionResponse>>(PrepareAsyncAddTransactionRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::blockchain::TransactionResponse>> PrepareAsyncAddTransaction(::grpc::ClientContext* context, const ::blockchain::Transaction& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::blockchain::TransactionResponse>>(PrepareAsyncAddTransactionRaw(context, request, cq));
+    }
+    virtual ::grpc::Status GetLastBlock(::grpc::ClientContext* context, const ::google::protobuf::Empty& request, ::blockchain::Block* response) = 0;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::blockchain::Block>> AsyncGetLastBlock(::grpc::ClientContext* context, const ::google::protobuf::Empty& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::blockchain::Block>>(AsyncGetLastBlockRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::blockchain::Block>> PrepareAsyncGetLastBlock(::grpc::ClientContext* context, const ::google::protobuf::Empty& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::blockchain::Block>>(PrepareAsyncGetLastBlockRaw(context, request, cq));
     }
     class async_interface {
      public:
       virtual ~async_interface() {}
-      virtual void AddTransaction(::grpc::ClientContext* context, const ::TransactionRequest* request, ::TransactionResponse* response, std::function<void(::grpc::Status)>) = 0;
-      virtual void AddTransaction(::grpc::ClientContext* context, const ::TransactionRequest* request, ::TransactionResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      virtual void AddTransaction(::grpc::ClientContext* context, const ::blockchain::Transaction* request, ::blockchain::TransactionResponse* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void AddTransaction(::grpc::ClientContext* context, const ::blockchain::Transaction* request, ::blockchain::TransactionResponse* response, ::grpc::ClientUnaryReactor* reactor) = 0;
+      virtual void GetLastBlock(::grpc::ClientContext* context, const ::google::protobuf::Empty* request, ::blockchain::Block* response, std::function<void(::grpc::Status)>) = 0;
+      virtual void GetLastBlock(::grpc::ClientContext* context, const ::google::protobuf::Empty* request, ::blockchain::Block* response, ::grpc::ClientUnaryReactor* reactor) = 0;
     };
     typedef class async_interface experimental_async_interface;
     virtual class async_interface* async() { return nullptr; }
     class async_interface* experimental_async() { return async(); }
    private:
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::TransactionResponse>* AsyncAddTransactionRaw(::grpc::ClientContext* context, const ::TransactionRequest& request, ::grpc::CompletionQueue* cq) = 0;
-    virtual ::grpc::ClientAsyncResponseReaderInterface< ::TransactionResponse>* PrepareAsyncAddTransactionRaw(::grpc::ClientContext* context, const ::TransactionRequest& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::blockchain::TransactionResponse>* AsyncAddTransactionRaw(::grpc::ClientContext* context, const ::blockchain::Transaction& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::blockchain::TransactionResponse>* PrepareAsyncAddTransactionRaw(::grpc::ClientContext* context, const ::blockchain::Transaction& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::blockchain::Block>* AsyncGetLastBlockRaw(::grpc::ClientContext* context, const ::google::protobuf::Empty& request, ::grpc::CompletionQueue* cq) = 0;
+    virtual ::grpc::ClientAsyncResponseReaderInterface< ::blockchain::Block>* PrepareAsyncGetLastBlockRaw(::grpc::ClientContext* context, const ::google::protobuf::Empty& request, ::grpc::CompletionQueue* cq) = 0;
   };
   class Stub final : public StubInterface {
    public:
     Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
-    ::grpc::Status AddTransaction(::grpc::ClientContext* context, const ::TransactionRequest& request, ::TransactionResponse* response) override;
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::TransactionResponse>> AsyncAddTransaction(::grpc::ClientContext* context, const ::TransactionRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::TransactionResponse>>(AsyncAddTransactionRaw(context, request, cq));
+    ::grpc::Status AddTransaction(::grpc::ClientContext* context, const ::blockchain::Transaction& request, ::blockchain::TransactionResponse* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::blockchain::TransactionResponse>> AsyncAddTransaction(::grpc::ClientContext* context, const ::blockchain::Transaction& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::blockchain::TransactionResponse>>(AsyncAddTransactionRaw(context, request, cq));
     }
-    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::TransactionResponse>> PrepareAsyncAddTransaction(::grpc::ClientContext* context, const ::TransactionRequest& request, ::grpc::CompletionQueue* cq) {
-      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::TransactionResponse>>(PrepareAsyncAddTransactionRaw(context, request, cq));
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::blockchain::TransactionResponse>> PrepareAsyncAddTransaction(::grpc::ClientContext* context, const ::blockchain::Transaction& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::blockchain::TransactionResponse>>(PrepareAsyncAddTransactionRaw(context, request, cq));
+    }
+    ::grpc::Status GetLastBlock(::grpc::ClientContext* context, const ::google::protobuf::Empty& request, ::blockchain::Block* response) override;
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::blockchain::Block>> AsyncGetLastBlock(::grpc::ClientContext* context, const ::google::protobuf::Empty& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::blockchain::Block>>(AsyncGetLastBlockRaw(context, request, cq));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::blockchain::Block>> PrepareAsyncGetLastBlock(::grpc::ClientContext* context, const ::google::protobuf::Empty& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::blockchain::Block>>(PrepareAsyncGetLastBlockRaw(context, request, cq));
     }
     class async final :
       public StubInterface::async_interface {
      public:
-      void AddTransaction(::grpc::ClientContext* context, const ::TransactionRequest* request, ::TransactionResponse* response, std::function<void(::grpc::Status)>) override;
-      void AddTransaction(::grpc::ClientContext* context, const ::TransactionRequest* request, ::TransactionResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void AddTransaction(::grpc::ClientContext* context, const ::blockchain::Transaction* request, ::blockchain::TransactionResponse* response, std::function<void(::grpc::Status)>) override;
+      void AddTransaction(::grpc::ClientContext* context, const ::blockchain::Transaction* request, ::blockchain::TransactionResponse* response, ::grpc::ClientUnaryReactor* reactor) override;
+      void GetLastBlock(::grpc::ClientContext* context, const ::google::protobuf::Empty* request, ::blockchain::Block* response, std::function<void(::grpc::Status)>) override;
+      void GetLastBlock(::grpc::ClientContext* context, const ::google::protobuf::Empty* request, ::blockchain::Block* response, ::grpc::ClientUnaryReactor* reactor) override;
      private:
       friend class Stub;
       explicit async(Stub* stub): stub_(stub) { }
@@ -79,9 +101,12 @@ class BlockchainService final {
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
     class async async_stub_{this};
-    ::grpc::ClientAsyncResponseReader< ::TransactionResponse>* AsyncAddTransactionRaw(::grpc::ClientContext* context, const ::TransactionRequest& request, ::grpc::CompletionQueue* cq) override;
-    ::grpc::ClientAsyncResponseReader< ::TransactionResponse>* PrepareAsyncAddTransactionRaw(::grpc::ClientContext* context, const ::TransactionRequest& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::blockchain::TransactionResponse>* AsyncAddTransactionRaw(::grpc::ClientContext* context, const ::blockchain::Transaction& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::blockchain::TransactionResponse>* PrepareAsyncAddTransactionRaw(::grpc::ClientContext* context, const ::blockchain::Transaction& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::blockchain::Block>* AsyncGetLastBlockRaw(::grpc::ClientContext* context, const ::google::protobuf::Empty& request, ::grpc::CompletionQueue* cq) override;
+    ::grpc::ClientAsyncResponseReader< ::blockchain::Block>* PrepareAsyncGetLastBlockRaw(::grpc::ClientContext* context, const ::google::protobuf::Empty& request, ::grpc::CompletionQueue* cq) override;
     const ::grpc::internal::RpcMethod rpcmethod_AddTransaction_;
+    const ::grpc::internal::RpcMethod rpcmethod_GetLastBlock_;
   };
   static std::unique_ptr<Stub> NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
 
@@ -89,7 +114,8 @@ class BlockchainService final {
    public:
     Service();
     virtual ~Service();
-    virtual ::grpc::Status AddTransaction(::grpc::ServerContext* context, const ::TransactionRequest* request, ::TransactionResponse* response);
+    virtual ::grpc::Status AddTransaction(::grpc::ServerContext* context, const ::blockchain::Transaction* request, ::blockchain::TransactionResponse* response);
+    virtual ::grpc::Status GetLastBlock(::grpc::ServerContext* context, const ::google::protobuf::Empty* request, ::blockchain::Block* response);
   };
   template <class BaseClass>
   class WithAsyncMethod_AddTransaction : public BaseClass {
@@ -103,15 +129,35 @@ class BlockchainService final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status AddTransaction(::grpc::ServerContext* /*context*/, const ::TransactionRequest* /*request*/, ::TransactionResponse* /*response*/) override {
+    ::grpc::Status AddTransaction(::grpc::ServerContext* /*context*/, const ::blockchain::Transaction* /*request*/, ::blockchain::TransactionResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
-    void RequestAddTransaction(::grpc::ServerContext* context, ::TransactionRequest* request, ::grpc::ServerAsyncResponseWriter< ::TransactionResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+    void RequestAddTransaction(::grpc::ServerContext* context, ::blockchain::Transaction* request, ::grpc::ServerAsyncResponseWriter< ::blockchain::TransactionResponse>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(0, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
-  typedef WithAsyncMethod_AddTransaction<Service > AsyncService;
+  template <class BaseClass>
+  class WithAsyncMethod_GetLastBlock : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_GetLastBlock() {
+      ::grpc::Service::MarkMethodAsync(1);
+    }
+    ~WithAsyncMethod_GetLastBlock() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetLastBlock(::grpc::ServerContext* /*context*/, const ::google::protobuf::Empty* /*request*/, ::blockchain::Block* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestGetLastBlock(::grpc::ServerContext* context, ::google::protobuf::Empty* request, ::grpc::ServerAsyncResponseWriter< ::blockchain::Block>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(1, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  typedef WithAsyncMethod_AddTransaction<WithAsyncMethod_GetLastBlock<Service > > AsyncService;
   template <class BaseClass>
   class WithCallbackMethod_AddTransaction : public BaseClass {
    private:
@@ -119,27 +165,54 @@ class BlockchainService final {
    public:
     WithCallbackMethod_AddTransaction() {
       ::grpc::Service::MarkMethodCallback(0,
-          new ::grpc::internal::CallbackUnaryHandler< ::TransactionRequest, ::TransactionResponse>(
+          new ::grpc::internal::CallbackUnaryHandler< ::blockchain::Transaction, ::blockchain::TransactionResponse>(
             [this](
-                   ::grpc::CallbackServerContext* context, const ::TransactionRequest* request, ::TransactionResponse* response) { return this->AddTransaction(context, request, response); }));}
+                   ::grpc::CallbackServerContext* context, const ::blockchain::Transaction* request, ::blockchain::TransactionResponse* response) { return this->AddTransaction(context, request, response); }));}
     void SetMessageAllocatorFor_AddTransaction(
-        ::grpc::MessageAllocator< ::TransactionRequest, ::TransactionResponse>* allocator) {
+        ::grpc::MessageAllocator< ::blockchain::Transaction, ::blockchain::TransactionResponse>* allocator) {
       ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(0);
-      static_cast<::grpc::internal::CallbackUnaryHandler< ::TransactionRequest, ::TransactionResponse>*>(handler)
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::blockchain::Transaction, ::blockchain::TransactionResponse>*>(handler)
               ->SetMessageAllocator(allocator);
     }
     ~WithCallbackMethod_AddTransaction() override {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status AddTransaction(::grpc::ServerContext* /*context*/, const ::TransactionRequest* /*request*/, ::TransactionResponse* /*response*/) override {
+    ::grpc::Status AddTransaction(::grpc::ServerContext* /*context*/, const ::blockchain::Transaction* /*request*/, ::blockchain::TransactionResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     virtual ::grpc::ServerUnaryReactor* AddTransaction(
-      ::grpc::CallbackServerContext* /*context*/, const ::TransactionRequest* /*request*/, ::TransactionResponse* /*response*/)  { return nullptr; }
+      ::grpc::CallbackServerContext* /*context*/, const ::blockchain::Transaction* /*request*/, ::blockchain::TransactionResponse* /*response*/)  { return nullptr; }
   };
-  typedef WithCallbackMethod_AddTransaction<Service > CallbackService;
+  template <class BaseClass>
+  class WithCallbackMethod_GetLastBlock : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_GetLastBlock() {
+      ::grpc::Service::MarkMethodCallback(1,
+          new ::grpc::internal::CallbackUnaryHandler< ::google::protobuf::Empty, ::blockchain::Block>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::google::protobuf::Empty* request, ::blockchain::Block* response) { return this->GetLastBlock(context, request, response); }));}
+    void SetMessageAllocatorFor_GetLastBlock(
+        ::grpc::MessageAllocator< ::google::protobuf::Empty, ::blockchain::Block>* allocator) {
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(1);
+      static_cast<::grpc::internal::CallbackUnaryHandler< ::google::protobuf::Empty, ::blockchain::Block>*>(handler)
+              ->SetMessageAllocator(allocator);
+    }
+    ~WithCallbackMethod_GetLastBlock() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetLastBlock(::grpc::ServerContext* /*context*/, const ::google::protobuf::Empty* /*request*/, ::blockchain::Block* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetLastBlock(
+      ::grpc::CallbackServerContext* /*context*/, const ::google::protobuf::Empty* /*request*/, ::blockchain::Block* /*response*/)  { return nullptr; }
+  };
+  typedef WithCallbackMethod_AddTransaction<WithCallbackMethod_GetLastBlock<Service > > CallbackService;
   typedef CallbackService ExperimentalCallbackService;
   template <class BaseClass>
   class WithGenericMethod_AddTransaction : public BaseClass {
@@ -153,7 +226,24 @@ class BlockchainService final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status AddTransaction(::grpc::ServerContext* /*context*/, const ::TransactionRequest* /*request*/, ::TransactionResponse* /*response*/) override {
+    ::grpc::Status AddTransaction(::grpc::ServerContext* /*context*/, const ::blockchain::Transaction* /*request*/, ::blockchain::TransactionResponse* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
+  template <class BaseClass>
+  class WithGenericMethod_GetLastBlock : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_GetLastBlock() {
+      ::grpc::Service::MarkMethodGeneric(1);
+    }
+    ~WithGenericMethod_GetLastBlock() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetLastBlock(::grpc::ServerContext* /*context*/, const ::google::protobuf::Empty* /*request*/, ::blockchain::Block* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
@@ -170,12 +260,32 @@ class BlockchainService final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status AddTransaction(::grpc::ServerContext* /*context*/, const ::TransactionRequest* /*request*/, ::TransactionResponse* /*response*/) override {
+    ::grpc::Status AddTransaction(::grpc::ServerContext* /*context*/, const ::blockchain::Transaction* /*request*/, ::blockchain::TransactionResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestAddTransaction(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
       ::grpc::Service::RequestAsyncUnary(0, context, request, response, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
+  class WithRawMethod_GetLastBlock : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_GetLastBlock() {
+      ::grpc::Service::MarkMethodRaw(1);
+    }
+    ~WithRawMethod_GetLastBlock() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetLastBlock(::grpc::ServerContext* /*context*/, const ::google::protobuf::Empty* /*request*/, ::blockchain::Block* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestGetLastBlock(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncUnary(1, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
   template <class BaseClass>
@@ -193,11 +303,33 @@ class BlockchainService final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable synchronous version of this method
-    ::grpc::Status AddTransaction(::grpc::ServerContext* /*context*/, const ::TransactionRequest* /*request*/, ::TransactionResponse* /*response*/) override {
+    ::grpc::Status AddTransaction(::grpc::ServerContext* /*context*/, const ::blockchain::Transaction* /*request*/, ::blockchain::TransactionResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     virtual ::grpc::ServerUnaryReactor* AddTransaction(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_GetLastBlock : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_GetLastBlock() {
+      ::grpc::Service::MarkMethodRawCallback(1,
+          new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetLastBlock(context, request, response); }));
+    }
+    ~WithRawCallbackMethod_GetLastBlock() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status GetLastBlock(::grpc::ServerContext* /*context*/, const ::google::protobuf::Empty* /*request*/, ::blockchain::Block* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerUnaryReactor* GetLastBlock(
       ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/, ::grpc::ByteBuffer* /*response*/)  { return nullptr; }
   };
   template <class BaseClass>
@@ -208,10 +340,10 @@ class BlockchainService final {
     WithStreamedUnaryMethod_AddTransaction() {
       ::grpc::Service::MarkMethodStreamed(0,
         new ::grpc::internal::StreamedUnaryHandler<
-          ::TransactionRequest, ::TransactionResponse>(
+          ::blockchain::Transaction, ::blockchain::TransactionResponse>(
             [this](::grpc::ServerContext* context,
                    ::grpc::ServerUnaryStreamer<
-                     ::TransactionRequest, ::TransactionResponse>* streamer) {
+                     ::blockchain::Transaction, ::blockchain::TransactionResponse>* streamer) {
                        return this->StreamedAddTransaction(context,
                          streamer);
                   }));
@@ -220,17 +352,46 @@ class BlockchainService final {
       BaseClassMustBeDerivedFromService(this);
     }
     // disable regular version of this method
-    ::grpc::Status AddTransaction(::grpc::ServerContext* /*context*/, const ::TransactionRequest* /*request*/, ::TransactionResponse* /*response*/) override {
+    ::grpc::Status AddTransaction(::grpc::ServerContext* /*context*/, const ::blockchain::Transaction* /*request*/, ::blockchain::TransactionResponse* /*response*/) override {
       abort();
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     // replace default version of method with streamed unary
-    virtual ::grpc::Status StreamedAddTransaction(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::TransactionRequest,::TransactionResponse>* server_unary_streamer) = 0;
+    virtual ::grpc::Status StreamedAddTransaction(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::blockchain::Transaction,::blockchain::TransactionResponse>* server_unary_streamer) = 0;
   };
-  typedef WithStreamedUnaryMethod_AddTransaction<Service > StreamedUnaryService;
+  template <class BaseClass>
+  class WithStreamedUnaryMethod_GetLastBlock : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithStreamedUnaryMethod_GetLastBlock() {
+      ::grpc::Service::MarkMethodStreamed(1,
+        new ::grpc::internal::StreamedUnaryHandler<
+          ::google::protobuf::Empty, ::blockchain::Block>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerUnaryStreamer<
+                     ::google::protobuf::Empty, ::blockchain::Block>* streamer) {
+                       return this->StreamedGetLastBlock(context,
+                         streamer);
+                  }));
+    }
+    ~WithStreamedUnaryMethod_GetLastBlock() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status GetLastBlock(::grpc::ServerContext* /*context*/, const ::google::protobuf::Empty* /*request*/, ::blockchain::Block* /*response*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with streamed unary
+    virtual ::grpc::Status StreamedGetLastBlock(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::google::protobuf::Empty,::blockchain::Block>* server_unary_streamer) = 0;
+  };
+  typedef WithStreamedUnaryMethod_AddTransaction<WithStreamedUnaryMethod_GetLastBlock<Service > > StreamedUnaryService;
   typedef Service SplitStreamedService;
-  typedef WithStreamedUnaryMethod_AddTransaction<Service > StreamedService;
+  typedef WithStreamedUnaryMethod_AddTransaction<WithStreamedUnaryMethod_GetLastBlock<Service > > StreamedService;
 };
+
+}  // namespace blockchain
 
 
 #endif  // GRPC_blockchain_2eproto__INCLUDED

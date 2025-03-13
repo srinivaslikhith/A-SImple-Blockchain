@@ -1,10 +1,14 @@
 syntax = "proto3";
+import "google/protobuf/empty.proto"; 
+package blockchain;
+
 
 service BlockchainService {
-  rpc AddTransaction (TransactionRequest) returns (TransactionResponse);
+  rpc AddTransaction (Transaction) returns (TransactionResponse);
+  rpc GetLastBlock (google.protobuf.Empty) returns (Block);
 }
 
-message TransactionRequest {
+message Transaction {
   string sender = 1;
   string receiver = 2;
   int64 amount = 3;
@@ -13,4 +17,12 @@ message TransactionRequest {
 message TransactionResponse {
   bool success = 1;
   string message = 2;
+}
+
+message Block {
+  int64 index = 1;
+  int64 timestamp = 2;
+  string previous_hash = 3;
+  string hash = 4;
+  repeated Transaction transactions = 5;
 }

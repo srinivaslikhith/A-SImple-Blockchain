@@ -13,8 +13,10 @@ class Block {
     string prev_hash;
     string curr_hash;
 public:
-    Block(int i, string prevHa#sh);
+    Block(int i, string prevHash);
     void ComputeCurrentHash();
+    friend class Blockchain;
+    friend class BlockChainServiceImpl;
 };
 
 class Blockchain {
@@ -23,7 +25,7 @@ class Blockchain {
     vector<string> pending_transactions;
 public:
     Blockchain();
-    void AddTransaction(String txn);
+    void AddTransaction(string txn);
     Block getLastBlock();
-}
+};
 #endif // BLOCKCHAIN_H

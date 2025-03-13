@@ -7,12 +7,12 @@
 #include <utils.h>
 
 class BlockChainServiceImpl final: public blockchain::BlockchainService::Service {
-    Blockchain: block_chain;
+    Blockchain block_chain;
 public:
-    grpc::Status AddTransaction(grpc::ServerContext* context, const blockchain::TransactionRequest* request, blockchain::TransactionResponse* response) override;
+    grpc::Status AddTransaction(grpc::ServerContext* context, const blockchain::Transaction* request, blockchain::TransactionResponse* response) override;
     grpc::Status GetLastBlock(grpc::ServerContext* context, const google::protobuf::Empty* request, blockchain::Block* response) override;
     
     void runServer();
-}
+};
 
 #endif // SERVER_H
