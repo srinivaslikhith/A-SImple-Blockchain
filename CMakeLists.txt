@@ -4,7 +4,8 @@ project(Blockchain)
 find_package(OpenSSL REQUIRED)
 find_package(gRPC REQUIRED)
 find_package(Protobuf REQUIRED)
-
+find_package(mongocxx REQUIRED)
+find_package(bsoncxx REQUIRED)
 
 # Set C++ standard
 set(CMAKE_CXX_STANDARD 17)
@@ -25,11 +26,11 @@ set(SOURCES
 
 #Create client the executable
 add_executable(client src/client.cc src/utils.cc ${PROTO_SRC})
-target_link_libraries(client ${Protobuf_LIBRARIES} gRPC::grpc++ OpenSSL::Crypto)
+target_link_libraries(client ${Protobuf_LIBRARIES} gRPC::grpc++ OpenSSL::Crypto mongocxx_shared bsoncxx_shared)
 
 # Create server the executable
 add_executable(server src/server.cc ${SOURCES} ${PROTO_SRC})
-target_link_libraries(server ${Protobuf_LIBRARIES} gRPC::grpc++ OpenSSL::Crypto)
+target_link_libraries(server ${Protobuf_LIBRARIES} gRPC::grpc++ OpenSSL::Crypto mongocxx_shared bsoncxx_shared)
 
 #copy files to build directory
 add_custom_command(TARGET client POST_BUILD
